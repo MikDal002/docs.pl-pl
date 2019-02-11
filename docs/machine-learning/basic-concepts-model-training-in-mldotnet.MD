@@ -38,16 +38,20 @@ W tym dokumencie opisano następujące pojęcia związane z szkolenia modelu w M
 
 ## <a name="data"></a>Dane
 
-W strukturze ML.NET dane są podobne do widoku SQL: Jest opóźnieniem ocenianą, informatycznych cursorable heterogenicznych, zestawu danych.
+W ML.NET dane są podobne do widoku SQL: Są wywoływane w momencie zapotrzebowania na nie, różnorodne oraz usystematyzowane. 
 
-- Ma ona *schematu* (wystąpienie `ISchema` interfejsu) zawierający informacje dotyczące kolumny widoku danych.
-  - Każda kolumna ma *nazwa*, *typu*i dowolnego zestawu *metadanych* skojarzonych z nim.
-  - W kolumnie *metadanych* zawiera informacje, takie jak miejsce nazwy kolumny wektora i podobne. Metadane, sama jest reprezentowany jako innego jednowierszowym *danych* unikatowy dla każdej kolumny.
-  - Widok danych to źródło *kursory*. Reakcji kursorów SQL: Kursor jest obiekt, który iteruje po danych jeden wiersz w czasie i przedstawia dostępne dane.
-  - Oczywiście dane mogą mieć dowolną liczbę aktywnych kursorów nad nią zgodnie z potrzebami. Ponieważ dane są niezmienne, kursory są naprawdę niezależne.
-  - Kursory zwykle dostęp tylko podzbiór kolumn: W celu zwiększenia wydajności w strukturze ML.NET oblicza tylko wartości kolumn, które są wymagane przez kursor.
+- Dane posiadają *schemat* (przez wystąpienie interfejsu `ISchema`) któr przechowuje informacje o kolumnach widoku danych.
+  - Każda kolumna posiada *nazwę*, *typ* i inne dodatkowe *metadane*.
+  - *Metadane* kolumny zawierają takie informacje, jak nazwy kolumny wektora i podobne. 
+    Metadane są reprezentowane jako inne jednowierszowe *dane* które są niepowtarzalne dla każdej z kolumn.
+  - Widok danych to źródło *kursorów*. 
+    Pomyśl o kursorach SQL: Kursor jest obiektem, który iteruje po danych wiersz po wierszu i przedstawia dostępne dane.
+  - Oczywiście dane mogą mieć dowolną liczbę aktywnych kursorów – zgodnie z zapotrzebowaniem. 
+    Ponieważ dane są niezmienne, kursory są kompletnie niezależne.
+  - Kursory zazwyczaj potrzebują dostępu tylko do ograniczonej ilości kolumn: 
+    W celu zwiększenia wydajności ML.NET oblicza tylko wartości tych kolumn, które są wymagane przez kursor.
 
-## <a name="transformer"></a>Transformer
+## <a name="transformer"></a>Transformator
 
 Transformer jest składnikiem, który pobiera dane, niektóre pracować nad nim i zwraca nowy przekształconych danych.
 
