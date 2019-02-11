@@ -1,6 +1,6 @@
 ---
-title: Podstawowe pojęcia do trenowania modelu w strukturze ML.NET
-description: W tym artykule opisano podstawowe pojęcia dotyczące *modelu szkolenia* scenariuszy w strukturze ML.NET. Nie wszystkie pojęcia są istotne dla bardziej prostego scenariusza *prognozowania z istniejącego modelu*.
+title: Podstawowe pojęcia do trenowania modelu w ML.NET
+description: W tym artykule opisano podstawowe pojęcia dotyczące *trenowania modelu* w ML.NET. Nie wszystkie pojęcia są istotne dla prostych scenariuszy *prognozowania z wykorzystaniem istniejącego modelu*.
 ms.date: 11/06/2018
 ms.topic: overview
 ms.custom: mvc
@@ -11,29 +11,30 @@ ms.contentlocale: pl-PL
 ms.lasthandoff: 12/10/2018
 ms.locfileid: "53155439"
 ---
-# <a name="basic-concepts-for-model-training-in-mlnet"></a>Podstawowe pojęcia do trenowania modelu w strukturze ML.NET
+# <a name="basic-concepts-for-model-training-in-mlnet"></a>Podstawowe pojęcia do trenowania modelu w ML.NET
 
-W tym artykule opisano podstawowe pojęcia dotyczące *modelu szkolenia* scenariuszy w strukturze ML.NET. Nie wszystkie pojęcia są istotne dla bardziej prostego scenariusza *prognozowania z istniejącego modelu*.
+W tym artykule opisano podstawowe pojęcia dotyczące *trenowania modelu* w ML.NET. 
+Nie wszystkie pojęcia są istotne dla prostych scenariuszy *prognozowania z wykorzystaniem istniejącego modelu*.
 
 ## <a name="model-training-concepts"></a>Pojęcia dotyczące szkolenia modelu
 
-W tym dokumencie opisano następujące pojęcia związane z szkolenia modelu w strukturze ML.NET:
+W tym dokumencie opisano następujące pojęcia związane z szkolenia modelu w ML.NET:
 
-- [*Dane* ](#data) reprezentowane jako `IDataView` interfejsu.
-  - W strukturze ML.NET dane są podobne do widoku SQL: Jest cursorable opóźnieniem ocenianą, niemodyfikowalny, zestaw danych heterogenicznych, informatycznych. 
-  - Dokument doskonałą temat interfejs danych to [zasady projektowania IDataView](https://github.com/dotnet/machinelearning/blob/master/docs/code/IDataViewDesignPrinciples.md).
-- [*Transformer* ](#transformer) reprezentowane jako `ITransformer` interfejsu.
-  - Transformer jest składnikiem, który pobiera dane, niektóre działa na nim i zwraca nowy przekształconych danych.
-  - Na przykład można traktować modelu uczenia maszynowego jako transformer, przyjmuje funkcji, która zwraca prognozy.
-  - Inny przykład tokenizatora tekst przyjmuje pojedynczej kolumny tekstowej i danych wyjściowych kolumny wektora za pomocą poszczególnych wyrazów wyodrębnione poza teksty.
-- [*Czytnik danych* ](#data-reader) reprezentowane jako `IDataReader<T>` interfejsu.
-  - Czytnik danych jest strukturze ML.NET składnika do utworzenia danych. Trwa wystąpienie `T` i zwraca dane z niej. 
-  - Na przykład *TextLoader* jest `IDataReader<FileSource>`. Jego przyjmuje plik źródłowy i generuje dane. 
-- [*Narzędzie do szacowania* ](#estimator) reprezentowane jako `IEstimator<T>` interfejsu.
-  - Jest to obiekt, który uzyskuje informacje o dane. Jest wynikiem szkoleniowe *transformatora*.
-  - Można potraktować uczenia maszynowego *algorytm* jako narzędzie do szacowania, która uczy się na danych i uczenia maszynowego tworzy *modelu*.
-- [*Funkcja prognozowania* ](#prediction-function) reprezentowane jako `PredictionFunction<TSrc, TDst>` klasy.
-  - Funkcja prognozowania może być traktowany jako maszynie, która dotyczy transformatora jeden wiersz, takie jak w momencie prognozy.
+- [*Dane* ](#data) reprezentowane przez interfejs `IDataView`.
+  - W ML.NET dane są podobne do widoku SQL: Są wywoływane w momencie zapotrzebowania na nie, niemodyfikowalne, różnorodne oraz usystematyzowane. 
+  - Doskonałym materiałem na temat intefejsu danych są [zasady projektowania IDataView](https://github.com/dotnet/machinelearning/blob/master/docs/code/IDataViewDesignPrinciples.md).
+- [*Transformator* ](#transformer) reprezentowany przez interfejs `ITransformer`.
+  - Transformator jest komponentem, który pobiera dane, przekształca je i zwraca nowe dane.
+  - Dla przykładu możesz myśleć, że model uczenia maszynowego jest transformatorem: przyjmuje pewne właściwości i zwraca prognozy.
+  - Inny przykład: tokenizator tekstu przyjmuje pojedynczy wiersz tekstu a zwraca wektora z pojedynczymi wyrazami wyodrębnionymi z tekstu.
+- [*Czytnik danych* ](#data-reader) reprezentowany przez interfejs `IDataReader<T>`.
+  - Czytnik danych jest komponentem ML.NET do tworzenia danych. Bierze obiekt typu `T` i zwraca dane z tego obiektu. 
+  - Na przykład *TextLoader* to `IDataReader<FileSource>`. Pobiera zawartość pliku i tworzy dane. 
+- [*Szacownik (Estymator)* ](#estimator) reprezentowany przez interfejs `IEstimator<T>`.
+  - Jest to obiekt, który uczy się na podstawie danych. Wynikiem uczenia się jest *transformator*.
+  - Możesz traktować *algorytm* uczenia maszynowego jako narzędzie do szacowania, które uczy się na danych i *model* uczenia maszynowego.
+- [*Funkcja prognozująca* ](#prediction-function) reprezentowana przez klasę `PredictionFunction<TSrc, TDst>`.
+  - Funkcja prognozująca może być traktowana jako maszyna, która potrafi zastosować *transformator* do pojedynczego wiersza.
 
 ## <a name="data"></a>Dane
 
